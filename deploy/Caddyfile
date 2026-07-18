@@ -1,0 +1,27 @@
+{
+	# Caddy runs HTTP-only; a front proxy terminates TLS for iori.kiryu.cloud
+	# and forwards to this port (8080).
+	admin off
+}
+
+:8080 {
+	root * /opt/rngdle/web/dist
+	encode gzip zstd
+
+	# Leaderboard API -> appview (running on localhost:3001).
+	handle /api/* {
+		reverse_proxy localhost:3001
+	}
+
+	# Static frontend (SPA). The COOP/COEP headers match the Vite dev server
+	# and are what the WASM bundle expects; remove them only if a cross-origin
+	# resource refuses to load.
+	handle {
+		header {
+			Cross-Origin-Opener-Policy same-origin
+			Cross-Origin-Embedder-Policy require-corp
+		}
+		try_files {path} /index.html
+		file_server
+	}
+}

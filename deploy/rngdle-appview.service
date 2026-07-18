@@ -1,0 +1,27 @@
+[Unit]
+Description=RNGdle AppView (Jetstream consumer + leaderboard API)
+Documentation=https://github.com/caddyserver
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rngdle
+Group=rngdle
+WorkingDirectory=/opt/rngdle/appview
+Environment=APPVIEW_PORT=3001
+Environment=DATABASE_URL=sqlite:///opt/rngdle/appview/rngdle.db?mode=rwc
+Environment=RUST_LOG=info
+ExecStart=/opt/rngdle/appview/rngdle-appview
+Restart=on-failure
+RestartSec=5
+
+# Minimal hardening: the service only needs outbound network + its data dir.
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/rngdle/appview
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

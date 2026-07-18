@@ -1,0 +1,12 @@
+{
+  "client_id": "https://iori.kiryu.cloud/.well-known/atproto/oauth/client.json",
+  "client_name": "RNGdle",
+  "client_uri": "https://iori.kiryu.cloud",
+  "redirect_uris": ["https://iori.kiryu.cloud/callback"],
+  "scope": "atproto repo:vg.nat.randle.roll",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "application_type": "web",
+  "dpop_bound_access_tokens": true
+}

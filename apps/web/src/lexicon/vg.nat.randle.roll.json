@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "vg.nat.randle.roll",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A daily RNGdle roll. The claimedNumber is treated as a cache/display hint; canonical verification recomputes from did+date+round.",
+      "record": {
+        "type": "object",
+        "required": ["date", "round", "claimedNumber", "badges", "ep", "algo"],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "UTC date of the roll (YYYY-MM-DD)."
+          },
+          "round": {
+            "type": "integer",
+            "description": "The drand quicknet round ID used for entropy."
+          },
+          "claimedNumber": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "badges": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of matched badge IDs."
+          },
+          "ep": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total entropy points earned."
+          },
+          "algo": {
+            "type": "string",
+            "const": "vg.nat.randle.roll:v1",
+            "description": "Version tag of the derivation algorithm used."
+          }
+        }
+      }
+    }
+  }
+}
